@@ -1,18 +1,117 @@
 # LangkahKu – Eksperimen A (Baseline: PRD Only)
 
-Aplikasi web pendamping pemantau langkah harian. Proyek ini adalah **Eksperimen A** pada tugas Rekayasa Interaksi (Worksheet 12): aplikasi dibangun oleh AI coding agent (Claude) **hanya berdasarkan [`PRD.md`](PRD.md)**, tanpa dokumen UX tambahan.
+Aplikasi web pendamping pemantau langkah harian. Proyek ini adalah **Eksperimen A** pada tugas Rekayasa Interaksi (Worksheet 12): aplikasi dibangun oleh AI coding agent (Claude) **hanya berdasarkan PRD** di bawah ini, tanpa dokumen UX tambahan.
 
-- **Penyusun:** Ragil Tri Prasytio (202310370311369), Kelas B
-- **AI coding agent:** Claude (Anthropic)
-- **Input dokumentasi:** `PRD.md`
-- **Stack:** HTML, Tailwind CSS (CDN), JavaScript tanpa framework
+| | |
+|---|---|
+| **Penyusun** | Ragil Tri Prasytio (202310370311369), Kelas B |
+| **AI coding agent** | Claude (Anthropic) |
+| **Input dokumentasi** | PRD saja (README ini; salinan asli di [`PRD.md`](PRD.md)) |
+| **Stack** | HTML, Tailwind CSS (CDN), JavaScript tanpa framework |
+| **Demo** | https://liytio.github.io/langkahku-exp-a/ |
+| **Riwayat perubahan** | [`CHANGELOG.md`](CHANGELOG.md) |
+| **Riwayat prompt** | [`PROMPT_LOG.md`](PROMPT_LOG.md) |
 
-## Menjalankan
+**Menjalankan:** buka [demo](https://liytio.github.io/langkahku-exp-a/), atau buka `index.html` langsung di browser. Tidak ada proses build.
 
-Buka `index.html` di browser, atau aktifkan GitHub Pages pada branch `main`.
+**Struktur file:**
+```
+index.html       Halaman aplikasi (tata letak + Tailwind CDN)
+app.js           Data simulasi, perhitungan, dan interaksi
+PRD.md           Salinan asli PRD yang diberikan ke agent
+CHANGELOG.md     Riwayat versi
+PROMPT_LOG.md    Prompt yang dipakai ke AI coding agent
+```
 
-## Catatan
+---
 
-Data langkah adalah **data simulasi** (lihat PRD bagian 7). Aplikasi tidak terhubung ke HUAWEI Health atau perangkat asli.
+# PRD – LangkahKu
 
-Riwayat prompt yang dipakai ada di [`PROMPT_LOG.md`](PROMPT_LOG.md).
+**Product Requirements Document**
+Versi 1.0 · 22 November 2026 · Penyusun: Ragil Tri Prasytio (202310370311369)
+Mata kuliah Rekayasa Interaksi – Eksperimen A (Baseline: PRD Only)
+
+## 1. Ringkasan Produk
+
+LangkahKu adalah aplikasi web pendamping untuk pengguna smartwatch yang memantau aktivitas harian, khususnya jumlah langkah. Aplikasi menampilkan data langkah yang direkam oleh dua perangkat, yaitu smartwatch dan HP, dalam satu tampilan.
+
+## 2. Latar Belakang Masalah
+
+Pengguna smartwatch sering melepas jamnya (saat mandi, wudu, tidur, atau mengisi daya), tetapi tetap membawa HP. Selama jam dilepas, langkah tetap terekam oleh sensor HP. Akibatnya, angka langkah di jam dan di aplikasi pendamping bisa berbeda, dan pengguna bingung angka mana yang benar.
+
+Hasil riset pengguna (8 responden):
+
+- Angka di jam lebih rendah daripada aplikasi pada 5 dari 6 hari pengamatan (selisih 134–2.360 langkah/hari).
+- Hanya 2 dari 8 responden yang tahu bahwa langkah dihitung dari gabungan jam dan HP.
+- Rata-rata skor kepercayaan terhadap data langkah: 2,8 dari 5.
+
+## 3. Tujuan Produk
+
+1. Menampilkan total langkah harian pengguna secara jelas.
+2. Menampilkan data langkah dari HP dan jam.
+3. Membantu pengguna memantau target langkah harian.
+4. Meningkatkan kepercayaan pengguna terhadap data aktivitas.
+
+## 4. Target Pengguna
+
+Mahasiswa usia 18–24 tahun yang memakai smartwatch dan HP Android, sering melepas jam tetapi selalu membawa HP, dan lebih sering melihat progres di jam daripada membuka aplikasi.
+
+## 5. Fitur Utama
+
+| ID | Fitur | Deskripsi |
+|----|-------|-----------|
+| F1 | Dashboard hari ini | Menampilkan total langkah hari ini, target, persentase progres, jarak (km), dan kalori. |
+| F2 | Sumber data langkah | Menampilkan jumlah langkah yang direkam oleh HP dan oleh jam. |
+| F3 | Tampilan jam | Menampilkan angka yang terlihat di layar smartwatch. |
+| F4 | Riwayat 7 hari | Menampilkan grafik atau daftar langkah selama 7 hari terakhir. |
+| F5 | Sinkronisasi | Tombol untuk menyinkronkan data dari perangkat. |
+| F6 | Target langkah | Pengguna dapat mengubah target langkah harian. |
+| F7 | Bagikan | Pengguna dapat membagikan ringkasan langkah hari ini. |
+
+## 6. User Stories
+
+- Sebagai pengguna, saya ingin melihat total langkah hari ini agar tahu progres saya.
+- Sebagai pengguna, saya ingin melihat langkah dari HP dan jam agar tahu asal data saya.
+- Sebagai pengguna, saya ingin melihat riwayat 7 hari agar dapat memantau kebiasaan saya.
+- Sebagai pengguna, saya ingin menyinkronkan data agar angkanya terbaru.
+- Sebagai pengguna, saya ingin mengatur target langkah sesuai kemampuan saya.
+- Sebagai pengguna, saya ingin membagikan ringkasan langkah ke teman atau media sosial.
+
+## 7. Ruang Lingkup
+
+**Termasuk:**
+- Aplikasi web satu halaman yang berjalan di browser HP dan laptop.
+- Data langkah berupa data simulasi (tidak terhubung ke perangkat asli).
+
+**Tidak termasuk:**
+- Integrasi dengan API HUAWEI Health atau perangkat asli.
+- Login dan akun pengguna.
+- Data kesehatan selain langkah (detak jantung, tidur, dll).
+
+## 8. Kebutuhan Teknis
+
+- HTML, Tailwind CSS (CDN), dan JavaScript tanpa framework dan tanpa proses build.
+- Dapat dibuka langsung di browser atau di-hosting di GitHub Pages.
+- Target pengguna disimpan di browser (localStorage).
+
+## 9. Ukuran Keberhasilan
+
+- Pengguna dapat menyebutkan total langkah hari ini dalam waktu kurang dari 5 detik.
+- Pengguna dapat menyebutkan sumber data langkah (HP atau jam).
+- Skor kepercayaan pengguna terhadap data meningkat dari 2,8 menjadi ≥ 4 dari 5.
+
+---
+
+## Status Implementasi
+
+| ID | Fitur | Status di aplikasi |
+|----|-------|--------------------|
+| F1 | Dashboard hari ini | ✅ Total langkah, progres, target, jarak, kalori |
+| F2 | Sumber data langkah | ✅ Angka HP dan jam |
+| F3 | Tampilan jam | ✅ Tiruan layar smartwatch |
+| F4 | Riwayat 7 hari | ✅ Grafik batang |
+| F5 | Sinkronisasi | ✅ Simulasi (angka bertambah acak, tidak disimpan) |
+| F6 | Target langkah | ✅ Tersimpan di localStorage, minimal 500 |
+| F7 | Bagikan | ✅ Web Share API atau salin ke clipboard |
+
+**Catatan:** data langkah adalah **data simulasi** (PRD bagian 7). Aplikasi tidak terhubung ke HUAWEI Health atau perangkat asli. Sesuai aturan eksperimen, kekurangan UX pada hasil ini sengaja tidak diperbaiki agar dapat dibandingkan dengan Eksperimen B.
